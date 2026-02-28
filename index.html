@@ -16,159 +16,230 @@
             background-image: radial-gradient(at 0% 0%, hsla(343,91%,56%,1) 0, transparent 50%), 
                               radial-gradient(at 100% 100%, hsla(339,49%,30%,1) 0, transparent 50%);
         }
+        .card-subtle { transition: all 0.3s ease; border: 1px solid #eef2f6; }
+        .card-subtle:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
         
-        /* Estilo das Bolinhas de Destaque */
+        /* Ajustes Swiper */
+        .swiper-button-next, .swiper-button-prev { color: #fff; transform: scale(0.6); }
+        .swiper-pagination-bullet-active { background: #f43f5e !important; }
+        .video-container { aspect-ratio: 9/16; width: 100%; background: #000; border-radius: 1rem; overflow: hidden; }
+
+        /* Estilo Bolinhas (Highlights) */
         .highlight-ring {
             padding: 3px;
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
             border-radius: 50%;
-            transition: transform 0.2s;
         }
-        .highlight-ring:active { transform: scale(0.9); }
         .highlight-inner { border: 2px solid white; border-radius: 50%; overflow: hidden; aspect-ratio: 1/1; }
 
-        /* Modal Estilo Instagram */
+        /* Modal Instagram */
         #modalOverlay {
             display: none;
             position: fixed;
             inset: 0;
             background: rgba(0,0,0,0.9);
             z-index: 9999;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
         }
-        .modal-window {
-            width: 100%;
-            max-width: 450px;
-            height: 90vh;
+        .modal-content {
+            width: 95%;
+            max-width: 400px;
+            height: 80vh;
+            background: #000;
+            border-radius: 20px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-        }
-        .modal-video-card {
-            aspect-ratio: 9/16;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
         }
     </style>
 </head>
 <body class="text-slate-800 antialiased">
 
-    <div id="modalOverlay">
-        <div class="modal-window">
-            <div class="flex items-center justify-between px-6 py-4 text-white">
+    <div id="modalOverlay" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between p-4 border-b border-white/10 text-white">
                 <div class="flex items-center gap-2">
                     <i class="fab fa-instagram text-xl"></i>
-                    <span class="font-bold tracking-tight">Instagram</span>
+                    <span class="font-bold">Instagram</span>
                 </div>
-                <button onclick="closeModal()" class="text-2xl hover:text-rose-400">&times;</button>
+                <button onclick="closeModal()" class="text-2xl">&times;</button>
             </div>
-
-            <div class="swiper modalSwiper h-full w-full">
+            <div class="swiper modalSwiper w-full h-full">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide px-4">
-                        <div class="modal-video-card">
-                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay" allowfullscreen></iframe>
-                        </div>
+                    <div class="swiper-slide">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"></iframe>
                     </div>
-                    <div class="swiper-slide px-4">
-                        <div class="modal-video-card">
-                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay" allowfullscreen></iframe>
-                        </div>
-                    </div>
-                    <div class="swiper-slide px-4">
-                        <div class="modal-video-card">
-                            <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allow="autoplay" allowfullscreen></iframe>
-                        </div>
+                    <div class="swiper-slide">
+                        <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"></iframe>
                     </div>
                 </div>
-                <div class="swiper-button-next !text-white !scale-50"></div>
-                <div class="swiper-button-prev !text-white !scale-50"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
             </div>
         </div>
     </div>
 
-    <section class="w-full h-[300px] relative">
+    <section class="w-full h-[300px] md:h-[450px] relative overflow-hidden">
         <div class="swiper photoSwiper h-full w-full">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <img src="01.jfif" class="w-full h-full object-cover">
                 </div>
+                <div class="swiper-slide">
+                    <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&w=1600&q=80" class="w-full h-full object-cover">
+                </div>
             </div>
+            <div class="swiper-pagination"></div>
         </div>
     </section>
 
-    <section class="py-6 bg-white overflow-hidden">
+    <section class="py-6 bg-white border-b border-slate-100">
         <div class="container mx-auto">
             <div class="swiper highlightSwiper px-4">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide !w-20 text-center cursor-pointer" onclick="openModal()">
-                        <div class="highlight-ring mb-1">
-                            <div class="highlight-inner">
-                                <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=150" class="w-full h-full object-cover">
-                            </div>
-                        </div>
-                        <p class="text-[10px] font-semibold truncate">Empresa A</p>
+                        <div class="highlight-ring mb-1"><div class="highlight-inner"><img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?w=150" class="w-full h-full object-cover"></div></div>
+                        <span class="text-[10px] font-bold text-slate-500 uppercase">Empresa 1</span>
                     </div>
-
                     <div class="swiper-slide !w-20 text-center cursor-pointer" onclick="openModal()">
-                        <div class="highlight-ring mb-1">
-                            <div class="highlight-inner">
-                                <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=150" class="w-full h-full object-cover">
-                            </div>
-                        </div>
-                        <p class="text-[10px] font-semibold truncate">Empresa B</p>
+                        <div class="highlight-ring mb-1"><div class="highlight-inner"><img src="https://images.unsplash.com/photo-1493225255756-d9584f8606e9?w=150" class="w-full h-full object-cover"></div></div>
+                        <span class="text-[10px] font-bold text-slate-500 uppercase">Empresa 2</span>
                     </div>
                     </div>
             </div>
         </div>
     </section>
 
-    <section class="hero-mesh text-white py-12 px-4 text-center">
-        <h1 class="text-3xl font-bold">Vídeos Profissionais</h1>
-        <p class="mt-2 text-rose-100">Eleve o nível do seu posicionamento digital.</p>
+    
+
+    <section class="hero-mesh text-white pt-16 pb-20 px-4">
+        <div class="container mx-auto max-w-4xl text-center">
+            <span class="bg-white/10 text-white text-[10px] font-bold uppercase tracking-[2px] px-3 py-1 rounded-full border border-white/20">
+                Soluções em Vídeo
+            </span>
+            <h1 class="text-3xl md:text-5xl font-bold mt-6 mb-4 tracking-tight">
+                Vídeos que convertem <span class="text-rose-300">seguidores em clientes.</span>
+            </h1>
+            <p class="text-base md:text-lg text-rose-50/80 mb-8 max-w-lg mx-auto leading-relaxed">
+                Gravação e edição profissional para o seu Instagram. Tudo pronto para postar.
+            </p>
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="#planos" class="px-6 py-3 bg-white text-rose-600 font-semibold rounded-lg text-sm hover:bg-rose-50 transition-all shadow-lg">Ver Planos</a>
+                <a href="#" class="px-6 py-3 bg-rose-700/30 backdrop-blur-md text-white border border-white/20 font-semibold rounded-lg text-sm hover:bg-rose-700/50 transition-all">WhatsApp</a>
+            </div>
+        </div>
     </section>
+     <section id="planos" class="py-16 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <div class="card-subtle bg-white p-6 rounded-2xl">
+                    <div class="mb-6">
+                        <h3 class="text-sm font-bold text-rose-500 uppercase tracking-wider">Start</h3>
+                        <div class="flex items-baseline gap-1 mt-1">
+                            <span class="text-2xl font-bold">R$350</span>
+                            <span class="text-slate-400 text-xs">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-sm text-slate-600">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-[10px]"></i> 4 vídeos por mês/1 por semana</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-[10px]"></i> Edição essencial</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-[10px]"></i> Legendas dinâmicas</li>
+                    </ul>
+                    <a href="#" class="block w-full text-center py-2.5 bg-slate-50 hover:bg-slate-100 text-slate-700 font-bold rounded-lg text-xs transition-all">Assinar Start</a>
+                </div>
+
+                <div class="card-subtle bg-white p-6 rounded-2xl ring-2 ring-rose-500 shadow-xl relative">
+                    <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-rose-500 text-white text-[9px] font-black px-3 py-1 rounded-full uppercase">Recomendado</span>
+                    <div class="mb-6">
+                        <h3 class="text-sm font-bold text-rose-500 uppercase tracking-wider">Pro</h3>
+                        <div class="flex items-baseline gap-1 mt-1">
+                            <span class="text-3xl font-bold">R$550</span>
+                            <span class="text-slate-400 text-xs">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-sm text-slate-600">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-rose-500 text-[10px]"></i> 8 vídeos por mês / 2 por semana</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-rose-500 text-[10px]"></i> Edição Premium</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-rose-500 text-[10px]"></i> CTA Estratégico</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-rose-500 text-[10px]"></i> Visitas de Gravação</li>
+                    </ul>
+                    <a href="#" class="block w-full text-center py-3 bg-rose-500 hover:bg-rose-600 text-white font-bold rounded-lg text-xs transition-all shadow-md shadow-rose-200">Começar Plano Pro</a>
+                </div>
+
+                <div class="card-subtle bg-white p-6 rounded-2xl">
+                    <div class="mb-6">
+                        <h3 class="text-sm font-bold text-rose-500 uppercase tracking-wider">Business</h3>
+                        <div class="flex items-baseline gap-1 mt-1">
+                            <span class="text-2xl font-bold">R$750</span>
+                            <span class="text-slate-400 text-xs">/mês</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-3 mb-8 text-sm text-slate-600">
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-[10px]"></i> 12 vídeos por mês/3 por semana</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-[10px]"></i> Edição Avançada</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-[10px]"></i> Sound Design</li>
+                        <li class="flex items-center gap-2"><i class="fas fa-check text-green-500 text-[10px]"></i> Estratégia Mensal</li>
+                    </ul>
+                    <a href="#" class="block w-full text-center py-2.5 bg-slate-800 hover:bg-slate-900 text-white font-bold rounded-lg text-xs transition-all">Assinar Business</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+
+    <section class="py-16 bg-slate-50 overflow-hidden">
+        <div class="container mx-auto px-4 mb-10 text-center">
+            <h2 class="text-2xl font-bold text-slate-800">Nosso Portfólio</h2>
+        </div>
+        <div class="swiper videoSwiper px-4">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide max-w-[280px]">
+                    <div class="video-container shadow-2xl"><iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"></iframe></div>
+                </div>
+                <div class="swiper-slide max-w-[280px]">
+                    <div class="video-container shadow-2xl"><iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"></iframe></div>
+                </div>
+                <div class="swiper-slide max-w-[280px]">
+                    <div class="video-container shadow-2xl"><iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"></iframe></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+
+    <footer class="py-10 border-t border-slate-100 bg-white text-center">
+        <div class="flex justify-center gap-4 mb-4">
+            <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-50 text-slate-400 hover:text-rose-500 transition-all"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="w-8 h-8 flex items-center justify-center rounded-full bg-slate-50 text-slate-400 hover:text-rose-500 transition-all"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <p class="text-[11px] text-slate-400 uppercase tracking-[1px]">&copy; 2026 Vídeos que Vendem</p>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        // Inicializa carrossel de fotos (Topo)
-        new Swiper(".photoSwiper", { loop: true, autoplay: { delay: 3000 } });
-
-        // Inicializa carrossel de bolinhas (Destaques)
-        new Swiper(".highlightSwiper", {
-            slidesPerView: "auto",
-            spaceBetween: 12,
-            freeMode: true,
+        // Swipers
+        new Swiper(".photoSwiper", { loop: true, autoplay: { delay: 4000 }, pagination: { el: ".swiper-pagination" } });
+        new Swiper(".highlightSwiper", { slidesPerView: "auto", spaceBetween: 15, freeMode: true });
+        new Swiper(".videoSwiper", { slidesPerView: "auto", centeredSlides: true, spaceBetween: 30, loop: true });
+        
+        const modalSwiper = new Swiper(".modalSwiper", { 
+            loop: true, 
+            navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" } 
         });
 
-        // Inicializa o carrossel QUE FICA DENTRO do Modal
-        const modalSwiper = new Swiper(".modalSwiper", {
-            slidesPerView: 1,
-            spaceBetween: 20,
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-        });
-
-        // Funções para abrir/fechar o Modal
-        const modal = document.getElementById('modalOverlay');
-
+        // Funções Modal
         function openModal() {
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // Trava o scroll do site ao fundo
-            modalSwiper.update(); // Garante que o carrossel interno carregue certo
+            document.getElementById('modalOverlay').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => modalSwiper.update(), 100);
         }
-
         function closeModal() {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto'; // Destrava o scroll
-        }
-
-        // Fecha se clicar fora da janela branca
-        window.onclick = function(event) {
-            if (event.target == modal) closeModal();
+            document.getElementById('modalOverlay').style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
     </script>
 </body>
